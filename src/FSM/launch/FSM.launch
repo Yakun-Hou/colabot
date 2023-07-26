@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="FSM" type="FSM.cpp" name="FSM" output="screen" />
+    <node pkg="FSM" type="control.cpp" name="control" output="screen" />
+</launch>
