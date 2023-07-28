@@ -12,12 +12,11 @@
 
 // global parameter
 geometry_msgs::Twist twist;
-ros::Rate r(10);
-ros::Rate rec(60);
 bool seeFlag = false;
 QR_code_detector::code qr;
 
 void seeCallback(const QR_code_detector::code::ConstPtr &loc) {
+    // ROS_INFO("HERE");
     if (loc->flag) {
         seeFlag = true;
         qr.flag = loc->flag;
@@ -33,12 +32,14 @@ void seeCallback(const QR_code_detector::code::ConstPtr &loc) {
 void receiver(ros::NodeHandle nh) {
     int cnt = 0;
     seeFlag = false;
+    ros::Rate rec(60);
     
     while (cnt < 5) {
+        // ROS_INFO("HERE");
         ros::Subscriber sub = nh.subscribe<QR_code_detector::code>("QR_code", 10, seeCallback);
         cnt++;
         rec.sleep();
-        // ros::spinOnce();
+        ros::spinOnce();
     }
 }
 
@@ -141,8 +142,8 @@ int main(int argc, char *argv[]) {
     ros::NodeHandle nh;
 
     int cnt = 0;
-
-    while (cnt <= 10000) {
+    while (ros::ok()) {
+    // while (cnt <= 10000) {
         int command = decoder(nh);
         bool status = false;
 
@@ -160,7 +161,7 @@ int main(int argc, char *argv[]) {
                 ROS_INFO("What the fuck!");
         }
 
-        ROS_INFO("Running in the epoch [%d], the status is [%d]", cnt, status ? 1 : 0);
+        // ROS_INFO("Running in the epoch [%d], the status is [%d]", cnt, status ? 1 : 0);
         cnt++;
         // r.sleep();
     }

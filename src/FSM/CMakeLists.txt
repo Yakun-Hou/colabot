@@ -146,6 +146,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/FSM_node.cpp)
 add_executable(FSM src/FSM.cpp)
+add_executable(test_my src/test.cpp)
 # add_executable(control src/control.cpp)
 
 ## Rename C++ executable without prefix
@@ -160,6 +161,9 @@ add_executable(FSM src/FSM.cpp)
 add_dependencies(FSM ${PROJECT_NAME}_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(FSM
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(test_my
   ${catkin_LIBRARIES}
 )
 # target_link_libraries(control
