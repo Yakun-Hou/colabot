@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     ros::NodeHandle nh;
 
     //3.创建发布者对象
-    ros::Publisher pub = nh.advertise<QR_code_detector::code>("QR_code", 10);
+    ros::Publisher pub = nh.advertise<QR_code_detector::code>("QR_code", 1000);
 
     //4.组织被发布的消息，编写发布逻辑并发布消息
     QR_code_detector::code c;
@@ -22,12 +22,12 @@ int main(int argc, char *argv[])
     c.y = 2.0;
     c.z = 3.0;
 
-    ros::Rate r(1);
+    ros::Rate r(60);
     while (ros::ok())
     {
         pub.publish(c);
         c.z += 1;
-        ROS_INFO("%.5f, %.5f, %.5f", c.x, c.y, c.z);
+        // ROS_INFO("%.5f, %.5f, %.5f", c.x, c.y, c.z);
 
         r.sleep();
         ros::spinOnce();
