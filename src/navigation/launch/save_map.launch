@@ -1,0 +1,6 @@
+<launch>
+    <arg name="filename" value="$(find navigation)/maps/map1" />
+    <node name="map_save" pkg="map_server" type="map_saver" args="-f $(arg filename)">
+`	<remap from="map" to="slamware_ros_sdk_server_node/map"/>
+    </node>
+</launch>

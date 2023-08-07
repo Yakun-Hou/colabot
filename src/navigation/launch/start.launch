@@ -1,0 +1,12 @@
+<launch>
+    <arg name="map" default="map1.yaml" />
+
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find navigation)/maps/$(arg map)"/>
+
+    <include file="$(find navigation)/launch/amcl.launch">
+    </include>
+
+    <include file="$(find navigation)/launch/move_base.launch">
+    </include>
+
+</launch>
