@@ -12,12 +12,11 @@
 
 // global parameter
 geometry_msgs::Twist twist;
-ros::Rate r(10);
-ros::Rate rec(60);
 bool seeFlag = false;
 QR_code_detector::code qr;
 
 void seeCallback(const QR_code_detector::code::ConstPtr &loc) {
+    // ROS_INFO("HERE");
     if (loc->flag) {
         seeFlag = true;
         qr.flag = loc->flag;
@@ -33,12 +32,14 @@ void seeCallback(const QR_code_detector::code::ConstPtr &loc) {
 void receiver(ros::NodeHandle nh) {
     int cnt = 0;
     seeFlag = false;
+    ros::Rate rec(5);
     
     while (cnt < 5) {
-        ros::Subscriber sub = nh.subscribe<QR_code_detector::code>("QR_code", 10, seeCallback);
+        // ROS_INFO("HERE");
+        ros::Subscriber sub = nh.subscribe<QR_code_detector::code>("QR_code", 1000, seeCallback);
         cnt++;
         rec.sleep();
-        // ros::spinOnce();
+        ros::spinOnce();
     }
 }
 
@@ -91,9 +92,7 @@ int decoder(ros::NodeHandle nh) {
     }
 }
 
-bool stop(ros::NodeHandle nh) {
-    ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",10);
-
+bool stop(ros::NodeHandle nh, ros::Publisher pub) {
     twist.linear.x = 0;
     twist.linear.y = 0;
     twist.linear.z = 0;
@@ -102,26 +101,24 @@ bool stop(ros::NodeHandle nh) {
     twist.angular.z = 0;
     
     pub.publish(twist);
+    ros::spinOnce();
     ROS_INFO(" [Robot stopped] ");
     return true;
 }
 
-bool move(ros::NodeHandle nh) {
-    ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",10);
-
+bool move(ros::NodeHandle nh, ros::Publisher pub) {
     twist.linear.y = 0;
     twist.linear.z = 0;
     twist.angular.x = 0;
     twist.angular.y = 0;
 
     pub.publish(twist);
+    ros::spinOnce();
     ROS_INFO(" [Robot is moving] ");
     return true;
 }
 
-bool rotate(ros::NodeHandle nh) {
-    ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",10);
-
+bool rotate(ros::NodeHandle nh, ros::Publisher pub) {
     twist.linear.x = 0;
     twist.linear.y = 0;
     twist.linear.z = 0;
@@ -130,6 +127,7 @@ bool rotate(ros::NodeHandle nh) {
     twist.angular.z = 0.5;
     
     pub.publish(twist);
+    ros::spinOnce();
     ROS_INFO(" [Robot is rotating to find a target] ");
     return true;
 }
@@ -139,28 +137,30 @@ int main(int argc, char *argv[]) {
 
     ros::init(argc,argv,"FSM");
     ros::NodeHandle nh;
+    ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1000);
+
 
     int cnt = 0;
-
-    while (cnt <= 10000) {
+    while (ros::ok()) {
+    // while (cnt <= 10000) {
         int command = decoder(nh);
         bool status = false;
 
         switch (command) {
             case Stop:
-                status = stop(nh);
+                status = stop(nh, pub);
                 break;
             case Move:
-                status = move(nh);
+                status = move(nh, pub);
                 break;
             case Rotate:
-                status = rotate(nh);
+                status = rotate(nh, pub);
                 break;
             default:
                 ROS_INFO("What the fuck!");
         }
 
-        ROS_INFO("Running in the epoch [%d], the status is [%d]", cnt, status ? 1 : 0);
+        // ROS_INFO("Running in the epoch [%d], the status is [%d]", cnt, status ? 1 : 0);
         cnt++;
         // r.sleep();
     }

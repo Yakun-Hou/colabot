@@ -1,0 +1,25 @@
+<launch>
+    <arg name="frame_prefix" default=""/>
+    <arg name="robot_name" default=""/>
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find navigation)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find navigation)/config/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find navigation)/config/base_local_planner_holonomic_params.yaml" command="load" />
+        <rosparam file="$(find navigation)/config/move_base_params.yaml" command="load" />
+
+        <!-- explicitly define frame ids for movebase -->
+        <param name="global_costmap/global_frame"                   value="map"/>
+        <param name="global_costmap/robot_base_frame"               value="base_link"/>
+        <param name="global_costmap/2d_obstacles_layer/scan/topic"  value="slamware_ros_sdk_server_node/scan"/>
+        <param name="global_costmap/3d_obstacles_layer/depth/topic" value="camera/depth/color/points"/>
+        <param name="local_costmap/global_frame"                    value="odom"/>
+        <param name="local_costmap/robot_base_frame"                value="base_link"/>
+        <param name="local_costmap/2d_obstacles_layer/scan/topic"   value="slamware_ros_sdk_server_node/scan"/>
+        <param name="local_costmap/3d_obstacles_layer/depth/topic"  value="camera/depth/color/points"/>
+        <param name="GlobalPlanner/use_dijkstra " value="true" />
+        <remap from="cmd_vel" to="nav_cmd_vel"/>
+    </node>
+</launch>
