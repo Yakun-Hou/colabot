@@ -1,6 +1,0 @@
-<launch>
-    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
-    </include>
-    <node name="detector_circle" pkg="QR_code_detector" type="detector_circle.py" output="screen"/>
-    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find realsense2_camera)/rviz/colabot.rviz" required="true" /> -->
-</launch>
