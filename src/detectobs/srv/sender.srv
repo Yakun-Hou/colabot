@@ -1,0 +1,7 @@
+int32 num
+---
+# 服务器响应发送的数据
+sensor_msgs/Image image_with_bbox
+sensor_msgs/Image depth
+detectobs/code point
+detectobs/bbox bbox

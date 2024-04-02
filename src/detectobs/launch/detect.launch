@@ -1,0 +1,4 @@
+<launch>
+    <node pkg='detectobs' type='sender' name='node_for_detect' output='screen' />
+    <node pkg='detectobs' type='client' name='node_for_service' output='screen' />
+</launch>
