@@ -18,7 +18,7 @@ cv::Mat imagegot;
 cv::Mat depthgot;
 float cinfo[4];
 
-char* yolo_engine = (char*)"/home/unitree/test_dog/dog_3/src/detectobs/engine/best.engine";
+char* yolo_engine = (char*)"/home/unitree/colabot/src/detectobs/engine/best.engine";
 
 void imageCallback(const sensor_msgs::ImageConstPtr& msg)
 {
@@ -78,13 +78,13 @@ int main(int argc, char **argv){
   ros::init(argc, argv, "image_listener");
   ros::NodeHandle nh;
   image_transport::ImageTransport it(nh);
-  image_transport::Subscriber sub_rgb = it.subscribe("/camera/color/image_raw", 1, imageCallback);
+  image_transport::Subscriber sub_rgb = it.subscribe("/up_camera/color/image_raw", 1, imageCallback);
 
   image_transport::ImageTransport dt(nh);
-  image_transport::Subscriber sub_dth = dt.subscribe("/camera/aligned_depth_to_color/image_raw", 1, depthCallback);
+  image_transport::Subscriber sub_dth = dt.subscribe("/up_camera/depth/image_rect_raw", 1, depthCallback);
 
   ros::NodeHandle cinfoget;
-  ros::Subscriber sub_cinfo = cinfoget.subscribe("/camera/aligned_depth_to_color/camera_info", 1, cinfoCallback);
+  ros::Subscriber sub_cinfo = cinfoget.subscribe("/up_camera/depth/camera_info", 1, cinfoCallback);
 
   ros::NodeHandle dopub;
   ros::Publisher point_pub = dopub.advertise<detectobs::code>("Target_pos",1);

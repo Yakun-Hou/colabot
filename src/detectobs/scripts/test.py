@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 import sys
-sys.path.append('/home/unitree/test_dog/dog_3/src/detectobs/scripts/')
-sys.path.append('/home/unitree/test_dog/dog_3/src/detectobs/msg/')
+sys.path.append('/home/unitree/colabot/src/detectobs/scripts')
+sys.path.append('/home/unitree/colabot/src/detectobs/msg/')
 import os
 from running import TensorRTTracker
 import rospy
@@ -335,7 +335,7 @@ def process_result(bboxs,scores,image,id):
         if scores[0] > min_score:
             cv.rectangle(image_BGR, (int(bboxs[i][0]),int(bboxs[i][1])), (int(bboxs[i][0]+bboxs[i][2]),int(bboxs[i][1]+bboxs[i][3])), color=colors[i], thickness=2)
         else:
-            cv.rectangle(image_BGR, (0,0), (768,432), color=(255,0,0), thickness=2) 
+            cv.rectangle(image_BGR, (0,0), (640,480), color=(255,0,0), thickness=2) 
     iou=compute_iou(bboxs[0],bboxs[1])
     iou_related=iou/init_iou
 
@@ -348,7 +348,7 @@ def process_result(bboxs,scores,image,id):
     lost_flag=1 if scores[0]<min_score  else 0
     #cv.rectangle(image_BGR, (int(768/2),400), (int(768/2+768/2*math.log(iou_related)),415), color=(255,0,0), thickness=-1)
     #cv.rectangle(image_BGR, (int(768/2),415), (int(768/2+768/2*math.log(a_related)),430), color=(255,0,0), thickness=-1)
-    save_path = os.path.join("/home/unitree/test_dog/dog_3/src/detectobs/rt_imgs", "%04d.jpg" % id)
+    save_path = os.path.join("/home/unitree/colabot/src/detectobs/rt_imgs", "%04d.jpg" % id)
     cv.imwrite(save_path, image_BGR)
     return a_related,iou_related,lost_flag
 def crop_array(arr):
@@ -361,7 +361,7 @@ def get_img(data,encode):
     first_frame=data
     first_frame_cv=imgmsg_to_cv2(first_frame,encode)
     #print(first_frame_cv.shape)
-    first_frame_cv=cv.resize(first_frame_cv,(768,432))
+    first_frame_cv=cv.resize(first_frame_cv,(640,480))
     #print(first_frame_cv.shape)
     return (first_frame_cv)
 
@@ -376,7 +376,7 @@ class Tracker():
             if scores[0] > min_score:
                 cv.rectangle(image_BGR, (int(bboxs[i][0]),int(bboxs[i][1])), (int(bboxs[i][0]+bboxs[i][2]),int(bboxs[i][1]+bboxs[i][3])), color=colors[i], thickness=2)
             else:
-                cv.rectangle(image_BGR, (0,0), (768,432), color=(255,0,0), thickness=2) 
+                cv.rectangle(image_BGR, (0,0), (640,480), color=(255,0,0), thickness=2) 
         iou=compute_iou(bboxs[0],bboxs[1])
         iou_related=iou/self.init_iou
 
@@ -389,7 +389,7 @@ class Tracker():
         lost_flag=1 if scores[0]<min_score  else 0
         #cv.rectangle(image_BGR, (int(768/2),400), (int(768/2+768/2*math.log(iou_related)),415), color=(255,0,0), thickness=-1)
         #cv.rectangle(image_BGR, (int(768/2),415), (int(768/2+768/2*math.log(a_related)),430), color=(255,0,0), thickness=-1)
-        save_path = os.path.join("/home/unitree/test_dog/dog_3/src/detectobs/rt_imgs", "%04d.jpg" % id)
+        save_path = os.path.join("/home/unitree/colabot/src/detectobs/rt_imgs", "%04d.jpg" % id)
         cv.imwrite(save_path, image_BGR)
         return a_related,iou_related,lost_flag
     def image_callback(self,data):
@@ -405,9 +405,9 @@ class Tracker():
         self.image_now=None
         self.depth_now=None
         self.cinfo_now=None
-        self.rgb_subscriber = rospy.Subscriber("/camera/color/image_raw",Image,callback=self.image_callback)
-        self.depth_subscriber = rospy.Subscriber("/camera/aligned_depth_to_color/image_raw",Image,callback=self.depth_callback)
-        self.camera_info_subscriber = rospy.Subscriber("/camera/aligned_depth_to_color/camera_info",CameraInfo,callback=self.cameraInfo_callback)
+        self.rgb_subscriber = rospy.Subscriber("/up_camera/color/image_raw",Image,callback=self.image_callback)
+        self.depth_subscriber = rospy.Subscriber("/up_camera/aligned_depth_to_color/image_raw",Image,callback=self.depth_callback)
+        self.camera_info_subscriber = rospy.Subscriber("/up_camera/depth/camera_info",CameraInfo,callback=self.cameraInfo_callback)
         '''rospy.Subscriber("img_rgb_test",Image,first_callback_rgb)
         rospy.Subscriber("img_dpt_test",Image,first_callback_d)'''
         self.got_first_frame=0
@@ -431,16 +431,16 @@ class Tracker():
         self.init_bbox=np.array([first_bbox.x1, first_bbox.y1, first_bbox.x2-first_bbox.x1, first_bbox.y2-first_bbox.y1])
         self.init_bbox_2=crop_array(self.init_bbox)
         
-        self.info={'init_bbox':self.init_bbox,'engine_file':"/home/unitree/test_dog/dog_3/src/detectobs/engine/body.engine",'name':'body'}
-        self.info_2={'init_bbox':self.init_bbox_2,'engine_file':"/home/unitree/test_dog/dog_3/src/detectobs/engine/leg.engine",'name':'leg'}
+        self.info={'init_bbox':self.init_bbox,'engine_file':"/home/unitree/colabot/src/detectobs/engine/body.engine",'name':'body'}
+        self.info_2={'init_bbox':self.init_bbox_2,'engine_file':"/home/unitree/colabot/src/detectobs/engine/leg.engine",'name':'leg'}
         # file_names=os.listdir(seq_dir)
         # file_names.sort()
         # file_paths=[os.path.join(seq_dir,file_name) for file_name in file_names]
         #first_frame=_read_image(file_paths[0])
         self.tracker = MixFormerOnline()
         self.tracker_2 = MixFormerOnline()
-        self.rt_2=TensorRTTracker("/home/unitree/test_dog/dog_3/src/detectobs/engine/leg.engine")
-        self.rt=TensorRTTracker("/home/unitree/test_dog/dog_3/src/detectobs/engine/body.engine")
+        self.rt_2=TensorRTTracker("/home/unitree/colabot/src/detectobs/engine/leg.engine")
+        self.rt=TensorRTTracker("/home/unitree/colabot/src/detectobs/engine/body.engine")
         self.tracker.initialize(self.first_frame,self.info,self.rt)
         self.tracker_2.initialize(self.first_frame,self.info_2,self.rt_2)
         self.rt_2.print_trt_file_name()

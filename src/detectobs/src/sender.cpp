@@ -37,7 +37,7 @@ std::vector<DetectBox> humanbox;
 
 bool test=false;
 
-char* yolo_engine = (char*)"/home/unitree/test_dog/dog_3/src/detectobs/engine/best.engine";
+char* yolo_engine = (char*)"/home/unitree/colabot/src/detectobs/engine/best.engine";
 
 void imageCallback(const sensor_msgs::ImageConstPtr& msg){
   //printf("imageCallback\n");
@@ -142,13 +142,13 @@ int main(int argc, char **argv){
     ros::init(argc, argv, "sender");
     ros::NodeHandle nh;
     image_transport::ImageTransport it(nh);
-    image_transport::Subscriber sub_rgb = it.subscribe("/camera/color/image_raw", 1, imageCallback);
+    image_transport::Subscriber sub_rgb = it.subscribe("/up_camera/color/image_raw", 1,imageCallback);
 
     image_transport::ImageTransport dt(nh);
-    image_transport::Subscriber sub_dth = dt.subscribe("/camera/aligned_depth_to_color/image_raw", 1, depthCallback);
+    image_transport::Subscriber sub_dth = dt.subscribe("/up_camera/aligned_depth_to_color/image_raw", 1, depthCallback);
 
     ros::NodeHandle cinfoget;
-    ros::Subscriber sub_cinfo = cinfoget.subscribe("/camera/aligned_depth_to_color/camera_info", 1, cinfoCallback);
+    ros::Subscriber sub_cinfo = cinfoget.subscribe("/up_camera/depth/camera_info", 1, cinfoCallback);
     printf("是否开始选择跟踪目标，按任意键开始检测\n");
     getchar();
     while(1){

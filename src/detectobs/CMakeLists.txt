@@ -135,6 +135,7 @@ CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
 ## Build ##
 ###########
 include_directories(/usr/local/cuda/include/)
+include_directories(/usr/include/eigen3)
 # link_directories(usr/local/cuda/lib64)
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
@@ -180,6 +181,9 @@ include_directories(/usr/lib/aarch64-linux-gnu/)
 add_executable(client src/client.cpp)
 target_link_libraries(client ${PROJECT_SOURCE_DIR}/lib/libdd.so ${OpenCV_LIBS} ${catkin_LIBRARIES})
 
+add_executable(BT_lcm src/behavior_tree.cpp)
+target_link_libraries(BT_lcm ${EXTRA_LIBS} ${catkin_LIBRARIES})
+add_dependencies(BT_lcm ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
