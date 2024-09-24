@@ -27,16 +27,16 @@
 
 |视频ID|序列ID|图片数|画面人数|标注部位|数据集划分|
 | :-:  | :-: | :-:  | :-:   | :-:    | :-:|
-01|0010|186|single|body|val
-01|1010|200|single|leg|val
-02|0020|255|single|body|train
+01|0010|186|single|body|Detecting&Tracking val
+01|1010|200|single|leg|Tracking val
+02|0020|255|single|body|Detecting val&Tracking train
 02|1020|264|single|leg|train
 03|0030|241|multiple|body|train
 04|0040|300|multiple|body|train
 05|0050|276|multiple|body|train
 06|0060|284|multiple|body|train
-07|0070|174|multiple|body|val
-07|1070|100|multiple|leg|val
+07|0070|174|multiple|body|Tracking val
+07|1070|100|multiple|leg|Tracking val
 08|0080|295|multiple|body|train
 08|0081|287|multiple|body|train
 08|1080|295|multiple|leg|train
