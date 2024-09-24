@@ -1,0 +1,10 @@
+python train.py --data fused_img.yaml --epochs 20 --weights '/home/julien/yolov5/yolov5s.pt' --cfg yolov5s.yaml  --batch-size 8
+                                                                 yolov5s                    64
+                                                                 yolov5m                    40
+                                                                 yolov5l                    24
+                                                                 yolov5x                    16
+
+python detect.py  --data fused_img.yaml --weights /home/julien/yolov5/runs/train/exp32/weights/best.pt --augment
+python export.py --weights /home/julien/OADP/runs/train/exp6_30e/weights/best.pt --include engine --device 0 --data /home/julien/yolov5/data/fused_img.yaml
+python val.py  --data fused_img.yaml --weights /home/julien/OADP/runs/train/exp32/weights/best.pt --augment --batch-size 8
+python val.py  --data fused_img.yaml --weights /home/julien/yolov5/yolov5s.pt --augment --batch-size 8
