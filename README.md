@@ -29,7 +29,7 @@
 | :-:  | :-: | :-:  | :-:   | :-:    | :-:|
 01|0010|186|single|body|Detecting&Tracking val
 01|1010|200|single|leg|Tracking val
-02|0020|255|single|body|Detecting val&Tracking train
+02|0020|255|single|body|Detecting val&Tracking
 02|1020|264|single|leg|train
 03|0030|241|multiple|body|train
 04|0040|300|multiple|body|train
