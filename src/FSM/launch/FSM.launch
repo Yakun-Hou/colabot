@@ -1,4 +1,0 @@
-<launch>
-    <node pkg="FSM" type="FSM" name="FSM" output="screen" />
-    <node pkg="FSM" type="test_my" name="test_my" output="screen" />
-</launch>
