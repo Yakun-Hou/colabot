@@ -58,3 +58,6 @@
 
 ## 实现效果
 <div align=left>  <img src=".\images\4.gif" width=30%> <img src=".\images\5.gif" width=65%> </div>
+## 资源下载
+项目中所使用的数据集，权重等可通过以下链接下载
+[下载链接](https://bhpan.buaa.edu.cn/link/AAED102EB837C0480CB6E063A08D7A3D10)
