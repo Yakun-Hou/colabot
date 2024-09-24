@@ -1,0 +1,60 @@
+name: os
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_kmp_llvm
+  - ca-certificates=2024.3.11=h06a4308_0
+  - certifi=2024.2.2=py38h06a4308_0
+  - cudatoolkit=10.2.89=hfd86e86_1
+  - faiss=1.7.4=py38h142654f_0_cpu
+  - ld_impl_linux-64=2.38=h1181459_1
+  - libblas=3.9.0=13_linux64_openblas
+  - libcblas=3.9.0=13_linux64_openblas
+  - libfaiss=1.7.4=hf47d654_0_cpu
+  - libfaiss-avx2=1.7.4=h1234567_0_cpu
+  - libffi=3.4.4=h6a678d5_0
+  - libgcc-ng=13.2.0=h807b86a_5
+  - libgfortran-ng=7.5.0=hae1eefd_17
+  - libgfortran4=7.5.0=ha8ba4b0_17
+  - liblapack=3.9.0=13_linux64_openblas
+  - libopenblas=0.3.18=hf726d26_0
+  - libstdcxx-ng=13.2.0=h7e041cc_5
+  - llvm-openmp=14.0.6=h9e868ea_0
+  - ncurses=6.4=h6a678d5_0
+  - openssl=3.0.13=h7f8727e_0
+  - python=3.8.19=h955ad1f_0
+  - python_abi=3.8=2_cp38
+  - readline=8.2=h5eee18b_0
+  - setuptools=68.2.2=py38h06a4308_0
+  - sqlite=3.41.2=h5eee18b_0
+  - tk=8.6.12=h1ccaba5_0
+  - wheel=0.41.2=py38h06a4308_0
+  - xz=5.4.6=h5eee18b_0
+  - zlib=1.2.13=h5eee18b_0
+  - pip:
+    - charset-normalizer==3.3.2
+    - einops==0.7.0
+    - einops-exts==0.0.4
+    - faiss-gpu==1.7.2
+    - filelock==3.13.3
+    - idna==3.6
+    - joblib==1.3.2
+    - memorizing-transformers-pytorch==0.4.1
+    - numpy==1.20.3
+    - pillow==10.3.0
+    - pip==24.0
+    - requests==2.31.0
+    - torch==1.13.1+cu116
+    - torchaudio==0.13.1+cu116
+    - torchvision==0.14.1+cu116
+    - typing-extensions==4.11.0
+    - urllib3==2.2.1
+prefix: # your prefix
+

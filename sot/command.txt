@@ -1,0 +1,2 @@
+python3 tracking/train.py --script linker  --config 256_32x8_ep30_dev  --save_dir test1  --mode multiple --nproc_per_node 4
+python3 tracking/test.py  linker  256_32x8_ep30_dev  --dataset_name DEV

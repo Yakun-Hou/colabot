@@ -1,0 +1,22 @@
+2023-03-15 22:17:14,248 INFO    MainThread:19457 [wandb_setup.py:_flush():68] Configure stats pid to 19457
+2023-03-15 22:17:14,248 INFO    MainThread:19457 [wandb_setup.py:_flush():68] Loading settings from /home/xzz/.config/wandb/settings
+2023-03-15 22:17:14,249 INFO    MainThread:19457 [wandb_setup.py:_flush():68] Loading settings from /mnt/data2/xzz/sot/wandb/settings
+2023-03-15 22:17:14,249 INFO    MainThread:19457 [wandb_setup.py:_flush():68] Loading settings from environment variables: {'_require_service': 'True', 'api_key': '***REDACTED***', 'mode': 'dryrun'}
+2023-03-15 22:17:14,249 INFO    MainThread:19457 [wandb_setup.py:_flush():68] Inferring run settings from compute environment: {'program_relpath': 'lib/train/run_training.py', 'program': 'lib/train/run_training.py'}
+2023-03-15 22:17:14,249 INFO    MainThread:19457 [wandb_init.py:_log_setup():476] Logging user logs to /mnt/data2/xzz/sot/tensorboard/train/linker/256_got10k_32x4_ep100/wandb/offline-run-20230315_221714-2mnprmzm/logs/debug.log
+2023-03-15 22:17:14,249 INFO    MainThread:19457 [wandb_init.py:_log_setup():477] Logging internal logs to /mnt/data2/xzz/sot/tensorboard/train/linker/256_got10k_32x4_ep100/wandb/offline-run-20230315_221714-2mnprmzm/logs/debug-internal.log
+2023-03-15 22:17:14,249 INFO    MainThread:19457 [wandb_init.py:init():516] calling init triggers
+2023-03-15 22:17:14,249 INFO    MainThread:19457 [wandb_init.py:init():519] wandb.init called with sweep_config: {}
+config: {}
+2023-03-15 22:17:14,249 INFO    MainThread:19457 [wandb_init.py:init():569] starting backend
+2023-03-15 22:17:14,250 INFO    MainThread:19457 [wandb_init.py:init():573] setting up manager
+2023-03-15 22:17:14,257 INFO    MainThread:19457 [backend.py:_multiprocessing_setup():102] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-03-15 22:17:14,260 INFO    MainThread:19457 [wandb_init.py:init():580] backend started and connected
+2023-03-15 22:17:14,271 INFO    MainThread:19457 [wandb_init.py:init():658] updated telemetry
+2023-03-15 22:17:14,415 INFO    MainThread:19457 [wandb_init.py:init():727] starting run threads in backend
+2023-03-15 22:17:19,422 INFO    MainThread:19457 [wandb_run.py:_console_start():1954] atexit reg
+2023-03-15 22:17:19,422 INFO    MainThread:19457 [wandb_run.py:_redirect():1812] redirect: SettingsConsole.WRAP_RAW
+2023-03-15 22:17:19,424 INFO    MainThread:19457 [wandb_run.py:_redirect():1877] Wrapping output streams.
+2023-03-15 22:17:19,424 INFO    MainThread:19457 [wandb_run.py:_redirect():1899] Redirects installed.
+2023-03-15 22:17:19,426 INFO    MainThread:19457 [wandb_init.py:init():764] run started, returning control to user process
+2023-03-15 22:17:51,612 WARNING MsgRouterThr:19457 [router.py:message_loop():77] message_loop has been closed
